@@ -1,22 +1,26 @@
-Build app with a mounted volume for export of data only (code copied at buildtime with Dockerfile)!!
+Build an app with a mounted volume for export of data only (code is here copied at buildtime with Dockerfile)!!
 ```
 docker build -t hberten/mydocker .
 ```
 
-Run container via bin/bash en test de code in de container zelf
+Enter a running container with bin/bash and test if the code is copied
 ```
 docker run --rm -ti hberten/mydocker:latest /bin/bash
+```
+
+Once in the container enter:
+```
 cd /home/analysis && ls
 ```
 
-Run container en pick de export in via mounted volume
-Make directory because otherwise sudo makes one as root (and then we can't delete the directory and files in it afterwards)
+Run a container and pick up the export in the host via the mouted volume
+Make a directory first with your current user. Otherwise sudo will make one as root (and then you can't delete the directory and files in it afterwards if you do not have root privileges)
 ```
-mkdir ~/rstudio/mydocker/export
+mkdir ~/_demos/docker/myR1_mountedVol/export
 ```
 
-Run container
+Run a container and execute the code
 ```
-docker run -v ~/_demos/myR1_mountedVol/export:/home/export  hberten/mydocker:latest
+docker run -v ~/_demos/docker/myR1_mountedVol/export:/home/export  hberten/mydocker:latest
 ```
 

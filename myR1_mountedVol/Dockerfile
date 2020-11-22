@@ -1,5 +1,5 @@
 # Every Dockerfile starts with a FROM, which describes what image we are building our image from.
-FROM hberten/r-base:4.0.3
+FROM rocker/r-ver:4.0.3
 
 RUN mkdir /home/analysis
 

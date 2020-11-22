@@ -1,19 +1,25 @@
-Build app with a mounted volume for export of data only (code copied at buildtime with Dockerfile)!!
+Build an app with a mounted volume for export of data only (the code thus is copuied at buildtime with the Dockerfile)!!
 ```
 docker build -t hberten/mydocker .
 ```
 
-Check env variables in the docker container
+Check the ENV-variables in the docker container
 ```
 docker run --rm --env-file ~/.env.list hberten/mydocker:latest env
 ```
 
-Run app container via bin/bash en test de code in de container zelf
+Run a container with bin/bash and test if the code is present in the container
 ```
 docker run --env-file ~/.env.list --rm -ti hberten/mydocker:latest /bin/bash
-cd /home/analysis && ls
 ```
-In R
+
+Once in the container:
+```
+cd /home/analysis && ls
+R
+```
+
+In R run:
 ```
    library(dplyr)
    library(magrittr)
@@ -30,19 +36,17 @@ In R
 DBI::dbDisconnect(con)
 ```
 
-
-Run app container en pick de export in via mounted volume
-Make directory because otherwise sudo makes one as root (can't delete afterwards)
+Make a directory first with your current user. Otherwise sudo will make one as root (and then you can't delete the directory and files in it afterwards if you do not have root privileges)
 ```
-mkdir ~/mydocker/export
+mkdir ~/_demos/docker/myR3_Envlist/export
 ```
 
-Without environment variables
+Without ENV-variables
 ```
-docker run -v ~/_demos/myR3_Envlist/export:/home/export  hberten/mydocker
+docker run -v ~/_demos/docker/myR3_Envlist/export:/home/export  hberten/mydocker
 ```
-With environment variables
+With ENV-variables
 ```
-docker run --env-file ~/.env.list -v ~/_demos/myR3_Envlist/export:/home/export  hberten/mydocker
+docker run --env-file ~/.env.list -v ~/_demos/docker/myR3_Envlist/export:/home/export  hberten/mydocker
 ```
 

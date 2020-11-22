@@ -1,29 +1,32 @@
-Build app with a mounted volume for all app code & building stuff (no code copied at buildtime with Dockerfile)!!
+Build an app with a mounted volume for all app code & building stuff (in this example no code is copied at buildtime with the Dockerfile)!!
 ```
 docker build -t hberten/mydocker --build-arg SCRIPT=iris .
 ```
-Test ARG dat doorgegeven is naar ENV in de container
+
+Test that the ARG variable is passed to the container (by using the ENV command)
 ```
 docker run hberten/mydocker env
 ```
 
-Run app container en pick de export in via mounted volume
-Run app container via bin/bash en test de code in de container zelf
+
+Enter a running container with bin/bash and test if the code is copied
 ```
-docker run --rm -it -v ~/_demos/myR2_paramArgEnv/:/home/analysis hberten/mydocker:latest /bin/bash
+docker run --rm -it -v ~/_demos/docker/myR2_paramArgEnv/:/home/analysis hberten/mydocker:latest /bin/bash
 cd /home/analysis && ls
 ```
 
-Run container zonder ENV (default ARG wordt dus gekozen)
+Run the app (execute the R-scripts) and pick up the export via the mounted volume
+Without passing ENV-parameter at runtime (i.e. default ARG is chosen)
 ```
-docker run -v ~/_demos/myR2_paramArgEnv/:/home/analysis hberten/mydocker:latest
+docker run -v ~/_demos/docker/myR2_paramArgEnv/:/home/analysis hberten/mydocker:latest
 ```
 
-Run container mét ENV (default ARG wordt overschreven)
+When passing a ENV-parameter (i.e. the default ARG will now be overwritten
 ```
-docker run -v ~/_demos/myR2_paramArgEnv/:/home/analysis -e SCRIPT=cars hberten/mydocker:latest
+docker run -v ~/_demos/docker/myR2_paramArgEnv/:/home/analysis -e SCRIPT=cars hberten/mydocker:latest
 ```
-Test ENV in container
+
+If you want to test if the ENV-parameters are present in the running container
 ```
 docker run --rm -e SCRIPT=cars hberten/mydocker:latest env
 ```
