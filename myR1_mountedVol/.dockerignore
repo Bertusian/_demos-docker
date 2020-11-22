@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# Allow files and folders with a pattern starting with !
+!feestdagen.sql
+!dbiscript.R
+!csvscript.R
+
+
+
