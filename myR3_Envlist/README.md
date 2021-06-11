@@ -27,7 +27,7 @@ In R run:
    connString <- sub("\\\\","\\", connString)
    con <- DBI::dbConnect(odbc::odbc(), encoding = "latin1", .connection_string = connString) 
    DBI::dbIsValid(con)
-   base <- dplyr::tbl(con, dplyr::sql(readr::read_file('ingrepen.sql'))) %>% 
+   base <- dplyr::tbl(con, dplyr::sql(readr::read_file('feestdagen.sql'))) %>% 
      collect() 
    sink("sink.txt")
    DBI::dbIsValid(con)
